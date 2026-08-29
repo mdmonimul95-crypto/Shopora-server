@@ -5,3 +5,12 @@ export const createProduct = async (data: any) => {
     data,
   });
 };
+
+
+export const getProducts = async () =>{
+    return await prisma.product.findMany({
+        orderBy:{
+            createdAt: "desc"
+        }
+    })
+}

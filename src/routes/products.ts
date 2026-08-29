@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createProduct } from "../services/products";
+import { createProduct, getProducts } from "../services/products";
 
 const router = Router();
 
@@ -21,5 +21,25 @@ router.post("/", async (req, res) => {
     });
   }
 });
+
+
+//GET /api/v1/products
+
+router.get("/" , async(req, res)=>{
+    try{
+        const products = await getProducts();
+
+        res.status(200).json({
+            success:true,
+            message: "Products Fetched Successfully",
+            data:products,
+        })
+    }catch(error){
+        res.status(500).json({
+            success:false,
+            message: "Failed to fetch products"
+        })
+    }
+})
 
 export default router;
