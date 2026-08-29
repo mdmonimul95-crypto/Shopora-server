@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createProduct, getProducts } from "../services/products";
+import { createProduct, deleteProduct, getProducts, updateProduct } from "../services/products";
 
 const router = Router();
 
@@ -38,6 +38,46 @@ router.get("/" , async(req, res)=>{
         res.status(500).json({
             success:false,
             message: "Failed to fetch products"
+        })
+    }
+})
+
+
+router.patch("/:id" , async(req, res) => {
+    try{
+        const product = await updateProduct(
+            req.params.id,
+            req.body
+        );
+
+        res.status(200).json({
+            success: true,
+            message: "Product update successfully",
+            data:product
+        })
+    }catch(error){
+        res.status(500).json({
+            success: false,
+            message: "Failed to update product"
+        })
+    }
+})
+
+
+router.delete("/:id" , async(req, res) =>{
+    try{
+        const product = await deleteProduct(req.params.id);
+
+        res.status(200).json({
+            success : true,
+            message: "Product deleted successfully",
+            data:product
+        });
+
+    }catch(error){
+        res.status(500).json({
+            success: false,
+            message: "Failed to delete Product"
         })
     }
 })
