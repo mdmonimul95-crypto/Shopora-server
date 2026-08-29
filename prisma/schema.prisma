@@ -73,3 +73,29 @@ enum UserRole {
   Seller
   Admin
 }
+
+
+model Product {
+  id            String @id @default(uuid())
+  name          String
+  sku           String @unique
+  shortDescription    String?
+  
+  category      String
+  brand         String?
+
+  regularPrice  Float
+  salePrice     Float?
+
+  stockQuantity Int
+  lowStockAlert Int @default(10)
+  stockStatus   String @default("IN_STOCK")
+
+  description   String?
+  images        String[]
+  status        String @default("DRAFT") 
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+}

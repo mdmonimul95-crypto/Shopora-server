@@ -59,3 +59,8 @@ export type users = Prisma.usersModel
  * 
  */
 export type verifications = Prisma.verificationsModel
+/**
+ * Model Product
+ * 
+ */
+export type Product = Prisma.ProductModel
