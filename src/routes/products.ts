@@ -12,14 +12,15 @@ router.post("/", async (req, res) => {
       message: "Product created successfully",
       data: product,
     });
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+  console.error("CREATE PRODUCT ERROR:", error);
 
-    res.status(500).json({
-      success: false,
-      message: "Failed to create product",
-    });
-  }
+  res.status(500).json({
+    success: false,
+    message: "Failed to create product",
+    error: error?.message || "Unknown error",
+  });
+}
 });
 
 
