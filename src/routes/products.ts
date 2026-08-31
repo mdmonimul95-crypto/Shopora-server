@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createProduct, deleteProduct, getProducts, updateProduct } from "../services/products";
+import { createProduct, deleteProduct, getProductById, getProducts, updateProduct } from "../services/products";
 
 const router = Router();
 
@@ -39,6 +39,36 @@ router.get("/" , async(req, res)=>{
         res.status(500).json({
             success:false,
             message: "Failed to fetch products"
+        })
+    }
+})
+
+
+// GET /api/v1/products/:id
+
+router.get("/:id" , async(req, res) => {
+    try{
+        const  {id} = req.params
+        const product = await getProductById(id)
+
+        if(!product){
+            return res.status(404).json({
+                success: false,
+                message: "Product not Found"
+            })
+        }
+
+        return  res.status(200).json({
+            success: true,
+            message: "Product fetched Successfully",
+            data:product,
+        })
+    }catch(err){
+        console.log("Get product by id ERROR" , err)
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to fetch product",
         })
     }
 })
