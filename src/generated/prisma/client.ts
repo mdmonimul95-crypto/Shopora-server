@@ -64,3 +64,8 @@ export type verifications = Prisma.verificationsModel
  * 
  */
 export type Product = Prisma.ProductModel
+/**
+ * Model Categories
+ * 
+ */
+export type Categories = Prisma.CategoriesModel

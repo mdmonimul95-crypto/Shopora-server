@@ -74,28 +74,40 @@ enum UserRole {
   Admin
 }
 
-
 model Product {
-  id            String @id @default(uuid())
-  name          String
-  sku           String @unique
-  shortDescription    String?
-  
-  category      String
-  brand         String?
+  id               String  @id @default(uuid())
+  name             String
+  sku              String  @unique
+  shortDescription String?
+  category         String
+  brand            String?
 
-  regularPrice  Float
-  salePrice     Float?
+  regularPrice Float
+  salePrice    Float?
 
   stockQuantity Int
-  lowStockAlert Int @default(10)
+  lowStockAlert Int    @default(10)
   stockStatus   String @default("IN_STOCK")
 
-  description   String?
-  images        String[]
-  status        String @default("DRAFT") 
+  description String?
+  images      String[]
+  status      String   @default("DRAFT")
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  CategoriesId String?
+  Categories   Categories? @relation(fields: [CategoriesId], references: [id])
+}
+
+model Categories {
+  id          String  @id @default(uuid())
+  name        String  @unique
+  description String?
+  status      String  @default("Active")
+
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
