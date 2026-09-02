@@ -402,7 +402,8 @@ export const ModelName = {
   users: 'users',
   verifications: 'verifications',
   Product: 'Product',
-  Categories: 'Categories'
+  Categories: 'Categories',
+  Brands: 'Brands'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -418,7 +419,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "accounts" | "sessions" | "users" | "verifications" | "product" | "categories"
+    modelProps: "accounts" | "sessions" | "users" | "verifications" | "product" | "categories" | "brands"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -866,6 +867,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Brands: {
+      payload: Prisma.$BrandsPayload<ExtArgs>
+      fields: Prisma.BrandsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BrandsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrandsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BrandsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrandsPayload>
+        }
+        findFirst: {
+          args: Prisma.BrandsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrandsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BrandsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrandsPayload>
+        }
+        findMany: {
+          args: Prisma.BrandsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrandsPayload>[]
+        }
+        create: {
+          args: Prisma.BrandsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrandsPayload>
+        }
+        createMany: {
+          args: Prisma.BrandsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BrandsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrandsPayload>[]
+        }
+        delete: {
+          args: Prisma.BrandsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrandsPayload>
+        }
+        update: {
+          args: Prisma.BrandsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrandsPayload>
+        }
+        deleteMany: {
+          args: Prisma.BrandsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BrandsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BrandsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrandsPayload>[]
+        }
+        upsert: {
+          args: Prisma.BrandsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrandsPayload>
+        }
+        aggregate: {
+          args: Prisma.BrandsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBrands>
+        }
+        groupBy: {
+          args: Prisma.BrandsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BrandsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BrandsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BrandsCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -982,7 +1057,8 @@ export const ProductScalarFieldEnum = {
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  CategoriesId: 'CategoriesId'
+  CategoriesId: 'CategoriesId',
+  BrandsId: 'BrandsId'
 } as const
 
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -998,6 +1074,19 @@ export const CategoriesScalarFieldEnum = {
 } as const
 
 export type CategoriesScalarFieldEnum = (typeof CategoriesScalarFieldEnum)[keyof typeof CategoriesScalarFieldEnum]
+
+
+export const BrandsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  logo: 'logo',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BrandsScalarFieldEnum = (typeof BrandsScalarFieldEnum)[keyof typeof BrandsScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1263,6 +1352,7 @@ export type GlobalOmitConfig = {
   verifications?: Prisma.verificationsOmit
   product?: Prisma.ProductOmit
   categories?: Prisma.CategoriesOmit
+  brands?: Prisma.BrandsOmit
 }
 
 /* Types for Logging */
