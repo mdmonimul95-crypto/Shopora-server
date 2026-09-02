@@ -1,0 +1,54 @@
+import { prisma } from "../lib/prisma";
+
+export const getBrands = async () => {
+    const brands = await prisma.brands.findMany({
+        include: {
+            _count: {
+                select: {
+                    products: true,
+                }
+            }
+        },
+        orderBy: {
+            createdAt: 'desc'
+        }
+    });
+
+    // Flatten _count.products into a plain "products" number so the
+    // client can use it directly, same shape as the mock data before.
+    return brands.map((brand) => ({
+        id: brand.id,
+        name: brand.name,
+        description: brand.description,
+        logo: brand.logo,
+        status: brand.status,
+        createdAt: brand.createdAt,
+        products: brand._count.products,
+    }));
+}
+
+
+export const createBrand = async (data: { name: string; description?: string; logo?: string }) => {
+    return await prisma.brands.create({
+        data: {
+            name: data.name,
+            description: data.description,
+            logo: data.logo,
+        }
+    })
+}
+
+
+export const updateBrand = async (id: string, data: { name?: string; description?: string; logo?: string; status?: string }) => {
+    return await prisma.brands.update({
+        where: { id },
+        data,
+    })
+}
+
+
+export const deleteBrand = async (id: string) => {
+    return await prisma.brands.delete({
+        where: { id },
+    })
+}
