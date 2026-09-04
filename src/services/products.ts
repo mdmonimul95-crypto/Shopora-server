@@ -1,6 +1,7 @@
 import { prisma } from "../lib/prisma";
 
 export const createProduct = async (data: any) => {
+    console.log(data)
   return await prisma.product.create({
     data: {
       name: data.name,
@@ -20,6 +21,11 @@ export const createProduct = async (data: any) => {
       status: data.productStatus,
 
       images: data.images,
+      seller:{
+        connect: {
+            id: data.sellerId
+        }
+      }
     },
   });
 };

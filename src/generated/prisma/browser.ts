@@ -52,13 +52,3 @@ export type Categories = Prisma.CategoriesModel
  * 
  */
 export type Brands = Prisma.BrandsModel
-/**
- * Model Order
- * 
- */
-export type Order = Prisma.OrderModel
-/**
- * Model OrderItems
- * 
- */
-export type OrderItems = Prisma.OrderItemsModel
