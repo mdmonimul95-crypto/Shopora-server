@@ -17,17 +17,18 @@ export const getCategories = async () => {
 }
 
 
-export const createCategories = async(data:{name:string; description?:string}) => {
+export const createCategories = async(data:{name:string; description?:string; image?:string}) => {
     return await prisma.categories.create({        
         data:{
             name: data.name,
-            description: data.description
+            description: data.description,
+            image:data.image
         }
     })
 }
 
 
-export const updateCategories = async(id:string, data:{name?:string; description?:string; status?:string})=> {
+export const updateCategories = async(id:string, data:{name?:string; description?:string; image?:string; status?:string})=> {
     return await prisma.categories.update({
         where: {id},
         data,
