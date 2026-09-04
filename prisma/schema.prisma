@@ -55,6 +55,9 @@ model users {
   accounts      accounts[]
   sessions      sessions[]
   product       Product[]
+
+  customerOrders Order[]      @relation("CustomerOrders")
+  sellerOrders   OrderItems[] @relation("SellerOrderItems")
 }
 
 model verifications {
@@ -95,6 +98,8 @@ model Product {
 
   sellerId String
   seller   users  @relation(fields: [sellerId], references: [id])
+
+  orderItems OrderItems[]
 }
 
 model Categories {
@@ -123,4 +128,74 @@ enum UserRole {
   Customer
   Seller
   Admin
+}
+
+model Order {
+  id          String @id @default(uuid())
+  orderNumber String @unique
+
+  customerId String
+  customer   users  @relation("CustomerOrders", fields: [customerId], references: [id])
+
+  subtotal    Float
+  shippingFee Float @default(0)
+  discount    Float @default(0)
+  total       Float
+
+  paymentMethod String?
+  paymentStatus PaymentStatus @default(PENDING)
+  orderStatus   OrderStatus   @default(PLACED)
+
+  shippingName       String
+  shippingPhone      String
+  shippingAddress    String
+  shippingCity       String?
+  shippingPostalCode String?
+  shippingCountry    String?
+
+  couponCode String?
+  notes      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items OrderItems[]
+}
+
+model OrderItems {
+  id String @id @default(uuid())
+
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  sellerId String
+  seller   users  @relation("SellerOrderItems", fields: [sellerId], references: [id])
+
+  productName String
+  price       Float
+  quantity    Int
+  total       Float
+
+  createdAt DateTime @default(now())
+}
+
+enum OrderStatus {
+  PLACED
+  PAID
+  PROCESSING
+  PACKED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
 }
