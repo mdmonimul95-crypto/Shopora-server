@@ -75,6 +75,11 @@ export type Categories = Prisma.CategoriesModel
  */
 export type Brands = Prisma.BrandsModel
 /**
+ * Model Wishlist
+ * 
+ */
+export type Wishlist = Prisma.WishlistModel
+/**
  * Model Order
  * 
  */

@@ -55,6 +55,7 @@ model users {
   accounts      accounts[]
   sessions      sessions[]
   product       Product[]
+  wishlist      Wishlist[]
 
   customerOrders Order[]      @relation("CustomerOrders")
   sellerOrders   OrderItems[] @relation("SellerOrderItems")
@@ -100,6 +101,7 @@ model Product {
   seller   users  @relation(fields: [sellerId], references: [id])
 
   orderItems OrderItems[]
+  wishlistedBy Wishlist[] 
 }
 
 model Categories {
@@ -122,6 +124,23 @@ model Brands {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   products    Product[]
+}
+
+
+model Wishlist {
+  id String @id @default(uuid())
+
+  userId String
+  users  users  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+  @@index([userId])
+  @@index([productId])
 }
 
 enum UserRole {
