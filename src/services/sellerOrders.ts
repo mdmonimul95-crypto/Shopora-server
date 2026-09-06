@@ -1,3 +1,4 @@
+import { OrderStatus } from "../generated/prisma/enums";
 import { prisma } from "../lib/prisma";
 
 export const getSellerOrders = async (sellerId: string) => {
@@ -74,3 +75,47 @@ export const getSellerOrders = async (sellerId: string) => {
 
   return Array.from(groupedOrders.values());
 };
+
+export const getSellerOrderById = async(orderId: string) => {
+  // console.log("STEP 1 - Order ID:", orderId);
+
+  const order = await prisma.order.findUnique({
+  where: {
+    id: orderId,
+  },
+  include: {
+    items: {
+      include: {
+        product: {
+          select: {
+            sku: true,
+            images: true,
+          },
+        },
+      },
+    },
+  },
+});
+
+  // console.log("STEP 1 - Order from database:", order);
+  return order;
+}
+
+
+export const updateSellerOrderStatus = async (orderId: string, status: OrderStatus) =>{
+  // console.log("Step status 1 - Order ID: " , orderId)
+  //  console.log("STEP STATUS 1 - New Status:", status);
+
+   const updateOrder = await prisma.order.update({
+    where: {
+      id: orderId,
+    },
+    data:{
+      orderStatus: status,
+    }
+   })
+
+  //  console.log("Step Status 1 - Updated Order: " , updateOrder);
+   return updateOrder;
+}
+

@@ -183,6 +183,7 @@ model OrderItems {
 }
 
 enum OrderStatus {
+  PENDING
   PLACED
   PAID
   PROCESSING
