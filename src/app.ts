@@ -30,4 +30,5 @@ app.use("/api/v1/seller/orders", sellerOrdersRouter);
 app.use("/api/v1/wishlist" , wishlistRoutes)
 
 
+
 export default app
