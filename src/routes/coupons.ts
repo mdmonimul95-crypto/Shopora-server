@@ -1,7 +1,30 @@
 import { Router } from "express";
-import { createCoupon } from "../services/coupons";
+import { createCoupon, getCoupons } from "../services/coupons";
 
 const router = Router();
+
+
+// routes/coupons.ts
+router.get("/", async (req, res) => {
+  try {
+    const coupons = await getCoupons();
+
+    res.status(200).json({
+      success: true,
+      message: "Coupons fetched successfully",
+      data: coupons,
+    });
+  } catch (error: any) {
+    console.error("GET COUPONS ERROR:", error);
+
+    res.status(500).json({
+      success: false,
+      message: error?.message || "Failed to fetch coupons",
+    });
+  }
+});
+
+
 
 // POST /api/v1/coupons
 
