@@ -7,6 +7,7 @@ import searchRouter from "./routes/search";
 import ordersRouter  from "./routes/orders";
 import sellerOrdersRouter from "./routes/sellerOrders";
 import wishlistRoutes from "./routes/wishlist";
+import couponsRouter from "./routes/coupons";
 const app = express();
 
 
@@ -28,7 +29,7 @@ app.use("/api/v1/search" , searchRouter)
 app.use("/api/v1/orders" , ordersRouter)
 app.use("/api/v1/seller/orders", sellerOrdersRouter);
 app.use("/api/v1/wishlist" , wishlistRoutes)
-
+app.use("/api/v1/coupons", couponsRouter);
 
 
 export default app
