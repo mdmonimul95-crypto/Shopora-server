@@ -1,7 +1,7 @@
 import { prisma } from "../lib/prisma";
 
 export const createProduct = async (data: any) => {
-    console.log(data)
+    // console.log(data)
   return await prisma.product.create({
     data: {
       name: data.name,

@@ -38,7 +38,7 @@ export const getWishlistByUser = async (userId: string) => {
 
     // Flatten into the exact shape the client's WishlistItem UI expects,
     // so the frontend doesn't need to know about the Wishlist join table.
-    return items.map((item) => {
+    return items.map((item:any) => {
         const { product } = item;
 
         const hasDiscount =
