@@ -41,3 +41,12 @@ export const PaymentStatus = {
 } as const
 
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const DiscountType = {
+  FIXED_CART: 'FIXED_CART',
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED_PRODUCT: 'FIXED_PRODUCT'
+} as const
+
+export type DiscountType = (typeof DiscountType)[keyof typeof DiscountType]

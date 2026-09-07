@@ -219,3 +219,23 @@ enum PaymentStatus {
   FAILED
   REFUNDED
 }
+
+
+
+//------------------------------- Coupon Model ---------------------------
+model Coupon {
+  id           String       @id @default(uuid())
+  couponCode   String       @unique
+  description  String?
+  discountType DiscountType
+  amount       Float
+  expiryDate   DateTime
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+enum DiscountType {
+  FIXED_CART
+  PERCENTAGE
+  FIXED_PRODUCT
+}
