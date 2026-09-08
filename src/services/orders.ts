@@ -26,6 +26,43 @@ type CreateOrderInput = {
   notes?: string;
 };
 
+// ================= GET CUSTOMER ORDERS =================
+// All orders that belong to a single customer, newest first,
+// flattened into the shape the "My Orders" page expects.
+export const getCustomerOrders = async (customerId: string) => {
+  if (!customerId) {
+    throw new Error("Customer ID is required.");
+  }
+
+  const orders = await prisma.order.findMany({
+    where: { customerId },
+    include: {
+      items: {
+        include: {
+          product: {
+            select: { id: true, name: true, images: true },
+          },
+        },
+      },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return orders.map((order) => ({
+    id: order.id,
+    orderNumber: order.orderNumber,
+    status: order.orderStatus,
+    total: order.total,
+    createdAt: order.createdAt,
+    items: order.items.map((item) => ({
+      productName: item.productName,
+      productImage: item.product?.images?.[0] || null,
+      quantity: item.quantity,
+      price: item.price,
+    })),
+  }));
+};
+
 export const createOrder = async (data: CreateOrderInput) => {
   // ================= VALIDATION =================
 
