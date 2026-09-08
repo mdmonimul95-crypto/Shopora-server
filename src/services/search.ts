@@ -1,8 +1,15 @@
-import { prisma } from "../lib/prisma";
+import { prisma } from "../lib/prisma.js";
 
-export async function searchProducts(search: string) {
+export async function searchProducts(query: string) {
+  const search = query.trim();
+
+  if (!search) {
+    return [];
+  }
+
   const products = await prisma.product.findMany({
     where: {
+      status: "PUBLISHED",
       OR: [
         {
           name: {
@@ -12,6 +19,12 @@ export async function searchProducts(search: string) {
         },
         {
           sku: {
+            contains: search,
+            mode: "insensitive",
+          },
+        },
+        {
+          shortDescription: {
             contains: search,
             mode: "insensitive",
           },
@@ -28,11 +41,20 @@ export async function searchProducts(search: string) {
             mode: "insensitive",
           },
         },
+        {
+          description: {
+            contains: search,
+            mode: "insensitive",
+          },
+        },
       ],
     },
+
     orderBy: {
       createdAt: "desc",
     },
+
+    take: 30,
   });
 
   return products;

@@ -2,26 +2,25 @@ import { Router } from "express";
 import { searchProducts } from "../services/search";
 
 
-const router = Router();
+const searchRouter = Router();
 
-router.get("/", async (req, res) => {
+searchRouter.get("/", async (req, res) => {
   try {
-    const search =
-      typeof req.query.q === "string"
-        ? req.query.q.trim()
-        : "";
+    const query = String(req.query.q || "").trim();
 
-    if (!search) {
+    if (!query) {
       return res.status(400).json({
         success: false,
         message: "Search query is required",
       });
     }
 
-    const products = await searchProducts(search);
+    const products = await searchProducts(query);
 
     return res.status(200).json({
       success: true,
+      query,
+      count: products.length,
       data: products,
     });
   } catch (error) {
@@ -34,4 +33,4 @@ router.get("/", async (req, res) => {
   }
 });
 
-export default router;
+export default searchRouter;
