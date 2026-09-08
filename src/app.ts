@@ -8,7 +8,8 @@ import ordersRouter  from "./routes/orders";
 import sellerOrdersRouter from "./routes/sellerOrders";
 import wishlistRoutes from "./routes/wishlist";
 import couponsRouter from "./routes/coupons";
-import addressRoutes from "./routes/address";
+import aiRouter from "./routes/aiChat";
+import aiProductSearchRouter from "./routes/aiProductSearch";
 const app = express();
 
 
@@ -31,7 +32,8 @@ app.use("/api/v1/orders" , ordersRouter)
 app.use("/api/v1/seller/orders", sellerOrdersRouter);
 app.use("/api/v1/wishlist" , wishlistRoutes)
 app.use("/api/v1/coupons", couponsRouter);
-app.use("/api/v1/addresses", addressRoutes);
+app.use("/api/v1/ai", aiRouter);
+app.use("/api/v1/ai/products", aiProductSearchRouter);
 
 
 export default app
