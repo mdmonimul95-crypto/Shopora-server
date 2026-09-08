@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createOrder } from "../services/orders";
+import { createOrder, getCustomerOrders } from "../services/orders";
 
 const router = Router();
 
@@ -21,6 +21,39 @@ router.post("/", async (req, res) => {
       success: false,
       message:
         error?.message || "Failed to create order",
+    });
+  }
+});
+
+
+
+
+// GET CUSTOMER ORDERS
+
+router.get("/", async (req, res) => {
+  try {
+    const { customerId } = req.query;
+
+    if (!customerId || typeof customerId !== "string") {
+      return res.status(400).json({
+        success: false,
+        message: "customerId is required",
+      });
+    }
+
+    const orders = await getCustomerOrders(customerId);
+
+    res.status(200).json({
+      success: true,
+      message: "Orders fetched successfully",
+      data: orders,
+    });
+  } catch (error: any) {
+    console.error("GET CUSTOMER ORDERS ERROR:", error);
+
+    res.status(500).json({
+      success: false,
+      message: error?.message || "Failed to fetch orders",
     });
   }
 });
