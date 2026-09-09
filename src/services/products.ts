@@ -34,7 +34,8 @@ Categories: data.categoryId
         }
       }
     },
-  });
+});
+
 };
 
 
