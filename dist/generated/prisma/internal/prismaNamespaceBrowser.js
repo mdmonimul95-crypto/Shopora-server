@@ -48,7 +48,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NullsOrder = exports.QueryMode = exports.SortOrder = exports.ProductScalarFieldEnum = exports.VerificationsScalarFieldEnum = exports.UsersScalarFieldEnum = exports.SessionsScalarFieldEnum = exports.AccountsScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
+exports.NullsOrder = exports.QueryMode = exports.SortOrder = exports.CouponScalarFieldEnum = exports.OrderItemsScalarFieldEnum = exports.OrderScalarFieldEnum = exports.AddressScalarFieldEnum = exports.WishlistScalarFieldEnum = exports.BrandsScalarFieldEnum = exports.CategoriesScalarFieldEnum = exports.ProductScalarFieldEnum = exports.VerificationsScalarFieldEnum = exports.UsersScalarFieldEnum = exports.SessionsScalarFieldEnum = exports.AccountsScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
 const runtime = __importStar(require("@prisma/client/runtime/index-browser"));
 exports.Decimal = runtime.Decimal;
 exports.NullTypes = {
@@ -79,7 +79,14 @@ exports.ModelName = {
     sessions: 'sessions',
     users: 'users',
     verifications: 'verifications',
-    Product: 'Product'
+    Product: 'Product',
+    Categories: 'Categories',
+    Brands: 'Brands',
+    Wishlist: 'Wishlist',
+    Address: 'Address',
+    Order: 'Order',
+    OrderItems: 'OrderItems',
+    Coupon: 'Coupon'
 };
 /*
  * Enums
@@ -149,6 +156,90 @@ exports.ProductScalarFieldEnum = {
     description: 'description',
     images: 'images',
     status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    CategoriesId: 'CategoriesId',
+    BrandsId: 'BrandsId',
+    sellerId: 'sellerId'
+};
+exports.CategoriesScalarFieldEnum = {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    image: 'image',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.BrandsScalarFieldEnum = {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    logo: 'logo',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.WishlistScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    productId: 'productId',
+    createdAt: 'createdAt'
+};
+exports.AddressScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    label: 'label',
+    fullName: 'fullName',
+    phone: 'phone',
+    addressLine: 'addressLine',
+    city: 'city',
+    postalCode: 'postalCode',
+    country: 'country',
+    isDefault: 'isDefault',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.OrderScalarFieldEnum = {
+    id: 'id',
+    orderNumber: 'orderNumber',
+    customerId: 'customerId',
+    subtotal: 'subtotal',
+    shippingFee: 'shippingFee',
+    discount: 'discount',
+    total: 'total',
+    paymentMethod: 'paymentMethod',
+    paymentStatus: 'paymentStatus',
+    orderStatus: 'orderStatus',
+    shippingName: 'shippingName',
+    shippingPhone: 'shippingPhone',
+    shippingAddress: 'shippingAddress',
+    shippingCity: 'shippingCity',
+    shippingPostalCode: 'shippingPostalCode',
+    shippingCountry: 'shippingCountry',
+    couponCode: 'couponCode',
+    notes: 'notes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.OrderItemsScalarFieldEnum = {
+    id: 'id',
+    orderId: 'orderId',
+    productId: 'productId',
+    sellerId: 'sellerId',
+    productName: 'productName',
+    price: 'price',
+    quantity: 'quantity',
+    total: 'total',
+    createdAt: 'createdAt'
+};
+exports.CouponScalarFieldEnum = {
+    id: 'id',
+    couponCode: 'couponCode',
+    description: 'description',
+    discountType: 'discountType',
+    amount: 'amount',
+    expiryDate: 'expiryDate',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };

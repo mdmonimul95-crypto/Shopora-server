@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteProduct = exports.updateProduct = exports.getProductById = exports.getProducts = exports.createProduct = void 0;
 const prisma_1 = require("../lib/prisma");
 const createProduct = async (data) => {
+    // console.log(data)
     return await prisma_1.prisma.product.create({
         data: {
             name: data.name,
@@ -18,6 +19,11 @@ const createProduct = async (data) => {
             description: data.description,
             status: data.productStatus,
             images: data.images,
+            seller: {
+                connect: {
+                    id: data.sellerId
+                }
+            }
         },
     });
 };
