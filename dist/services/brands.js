@@ -1,0 +1,53 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteBrand = exports.updateBrand = exports.createBrand = exports.getBrands = void 0;
+const prisma_1 = require("../lib/prisma");
+const getBrands = async () => {
+    const brands = await prisma_1.prisma.brands.findMany({
+        include: {
+            _count: {
+                select: {
+                    products: true,
+                }
+            }
+        },
+        orderBy: {
+            createdAt: 'desc'
+        }
+    });
+    // Flatten _count.products into a plain "products" number so the
+    // client can use it directly, same shape as the mock data before.
+    return brands.map((brand) => ({
+        id: brand.id,
+        name: brand.name,
+        description: brand.description,
+        logo: brand.logo,
+        status: brand.status,
+        createdAt: brand.createdAt,
+        products: brand._count.products,
+    }));
+};
+exports.getBrands = getBrands;
+const createBrand = async (data) => {
+    return await prisma_1.prisma.brands.create({
+        data: {
+            name: data.name,
+            description: data.description,
+            logo: data.logo,
+        }
+    });
+};
+exports.createBrand = createBrand;
+const updateBrand = async (id, data) => {
+    return await prisma_1.prisma.brands.update({
+        where: { id },
+        data,
+    });
+};
+exports.updateBrand = updateBrand;
+const deleteBrand = async (id) => {
+    return await prisma_1.prisma.brands.delete({
+        where: { id },
+    });
+};
+exports.deleteBrand = deleteBrand;

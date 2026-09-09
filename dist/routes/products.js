@@ -16,8 +16,7 @@ router.post("/", async (req, res) => {
         console.error("CREATE PRODUCT ERROR:", error);
         res.status(500).json({
             success: false,
-            message: "Failed to create product",
-            error: error?.message || "Unknown error",
+            message: error?.message || "Failed to create product",
         });
     }
 });

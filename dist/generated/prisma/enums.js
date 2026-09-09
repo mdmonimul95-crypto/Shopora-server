@@ -9,9 +9,31 @@
 * 🟢 You can import this file directly.
 */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserRole = void 0;
+exports.DiscountType = exports.PaymentStatus = exports.OrderStatus = exports.UserRole = void 0;
 exports.UserRole = {
     Customer: 'Customer',
     Seller: 'Seller',
     Admin: 'Admin'
+};
+exports.OrderStatus = {
+    PENDING: 'PENDING',
+    PLACED: 'PLACED',
+    PAID: 'PAID',
+    PROCESSING: 'PROCESSING',
+    PACKED: 'PACKED',
+    SHIPPED: 'SHIPPED',
+    DELIVERED: 'DELIVERED',
+    CANCELLED: 'CANCELLED',
+    REFUNDED: 'REFUNDED'
+};
+exports.PaymentStatus = {
+    PENDING: 'PENDING',
+    PAID: 'PAID',
+    FAILED: 'FAILED',
+    REFUNDED: 'REFUNDED'
+};
+exports.DiscountType = {
+    FIXED_CART: 'FIXED_CART',
+    PERCENTAGE: 'PERCENTAGE',
+    FIXED_PRODUCT: 'FIXED_PRODUCT'
 };
