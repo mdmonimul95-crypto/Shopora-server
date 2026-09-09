@@ -1,29 +1,41 @@
 import { prisma } from "../lib/prisma";
 
 export const createProduct = async (data: any) => {
-    console.log(data);
-    console.log("CATEGORY ID:", data.categoryId);
-    console.log("CATEGORY:", data.category);
+    // console.log(data)
+  return await prisma.product.create({
+    data: {
+      name: data.name,
+      sku: data.sku,
+      category: data.category,
+      brand: data.brand,
+      shortDescription: data.shortDescription,
 
-    const seller = await prisma.users.findUnique({
-        where: {
-            id: data.sellerId,
-        },
-    });
+      regularPrice: Number(data.regularPrice),
+      salePrice: Number(data.salePrice),
 
-    console.log("SELLER ID RECEIVED:", data.sellerId);
-console.log("SELLER FROM DATABASE:", seller);
+      stockQuantity: Number(data.stockQuantity),
+      lowStockAlert: Number(data.lowStockAlert),
 
-    const allUsers = await prisma.users.findMany({
-    select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
+      stockStatus: data.stockStatus,
+      description: data.description,
+      status: data.productStatus,
+
+      images: data.images,
+      Brands: data.brandId
+  ? { connect: { id: data.brandId } }
+  : undefined,
+
+Categories: data.categoryId
+  ? { connect: { id: data.categoryId } }
+  : undefined,
+      seller:{
+        connect: {
+            id: data.sellerId
+        }
+      }
     },
 });
 
-console.log("ALL USERS FROM PRISMA:", allUsers);
 };
 
 
