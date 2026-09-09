@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createBrand, deleteBrand, getBrands, updateBrand } from "../services/brands";
+import { createBrand, deleteBrand, getBrands, updateBrand, getBrandById } from "../services/brands";
 
 
 
@@ -23,7 +23,37 @@ router.get("/", async (req, res) => {
             message: "Failed to fetch brands"
         })
     }
-})
+});
+
+
+
+// GET SINGLE BRAND (with products)
+
+router.get("/:id", async (req, res) => {
+    try {
+        const brand = await getBrandById(req.params.id);
+
+        if (!brand) {
+            return res.status(404).json({
+                success: false,
+                message: "Brand not found",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Brand fetched successfully",
+            data: brand,
+        });
+    } catch (err) {
+        console.error(err);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch brand",
+        });
+    }
+});
 
 
 

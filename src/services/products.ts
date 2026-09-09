@@ -21,6 +21,13 @@ export const createProduct = async (data: any) => {
       status: data.productStatus,
 
       images: data.images,
+      Brands: data.brandId
+  ? { connect: { id: data.brandId } }
+  : undefined,
+
+Categories: data.categoryId
+  ? { connect: { id: data.categoryId } }
+  : undefined,
       seller:{
         connect: {
             id: data.sellerId
