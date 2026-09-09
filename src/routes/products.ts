@@ -1,46 +1,31 @@
 import { Router } from "express";
 import { createProduct, deleteProduct, getProductById, getProducts, updateProduct } from "../services/products";
-
+import { searchProducts } from "../services/search";
 const router = Router();
 
-router.post("/", async (req, res) => {
+
+// GET /api/v1/products/search?q=ring
+
+router.get("/search", async (req, res) => {
   try {
-    const product = await createProduct(req.body);
+    const query = String(req.query.q || "");
 
-    res.status(201).json({
+    const products = await searchProducts(query);
+
+    res.status(200).json({
       success: true,
-      message: "Product created successfully",
-      data: product,
+      message: "Products searched successfully",
+      data: products,
     });
-  } catch (error: any) {
-  console.error("CREATE PRODUCT ERROR:", error);
+  } catch (error) {
+    console.error("SEARCH PRODUCTS ERROR:", error);
 
-  res.status(500).json({
-    success: false,
-    message: error?.message || "Failed to create product",
-  });
-}
+    res.status(500).json({
+      success: false,
+      message: "Failed to search products",
+    });
+  }
 });
-
-
-//GET /api/v1/products
-
-router.get("/" , async(req, res)=>{
-    try{
-        const products = await getProducts();
-
-        res.status(200).json({
-            success:true,
-            message: "Products Fetched Successfully",
-            data:products,
-        })
-    }catch(error){
-        res.status(500).json({
-            success:false,
-            message: "Failed to fetch products"
-        })
-    }
-})
 
 
 // GET /api/v1/products/:id
@@ -71,6 +56,52 @@ router.get("/:id" , async(req, res) => {
         })
     }
 })
+
+
+
+//GET /api/v1/products
+
+router.get("/" , async(req, res)=>{
+    try{
+        const products = await getProducts();
+
+        res.status(200).json({
+            success:true,
+            message: "Products Fetched Successfully",
+            data:products,
+        })
+    }catch(error){
+        res.status(500).json({
+            success:false,
+            message: "Failed to fetch products"
+        })
+    }
+})
+
+
+
+
+
+router.post("/", async (req, res) => {
+  try {
+    const product = await createProduct(req.body);
+
+    res.status(201).json({
+      success: true,
+      message: "Product created successfully",
+      data: product,
+    });
+  } catch (error: any) {
+  console.error("CREATE PRODUCT ERROR:", error);
+
+  res.status(500).json({
+    success: false,
+    message: error?.message || "Failed to create product",
+  });
+}
+});
+
+
 
 
 router.patch("/:id" , async(req, res) => {

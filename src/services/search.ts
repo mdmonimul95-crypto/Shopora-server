@@ -9,7 +9,7 @@ export async function searchProducts(query: string) {
 
   const products = await prisma.product.findMany({
     where: {
-      status: "PUBLISHED",
+      status: "published",
       OR: [
         {
           name: {
