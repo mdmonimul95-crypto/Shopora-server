@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createCategories, deleteCategories, getCategories, updateCategories } from "../services/categories";
+import { createCategories, deleteCategories, getCategories, updateCategories,getCategoryById } from "../services/categories";
 
 
 
@@ -83,7 +83,35 @@ router.delete("/:id" , async(req, res) => {
             message: "Failed to delete category",
         })
     }
-})
+});
+
+
+
+router.get("/:id", async (req, res) => {
+    try {
+        const category = await getCategoryById(req.params.id);
+
+        if (!category) {
+            return res.status(404).json({
+                success: false,
+                message: "Category not found",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Category fetched successfully",
+            data: category,
+        });
+    } catch (err) {
+        console.error(err);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch category",
+        });
+    }
+});
 
 
 export default router;
