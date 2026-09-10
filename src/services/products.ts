@@ -47,7 +47,20 @@ export const getProducts = async () => {
     })
 }
 
+export const getNewArrivals = async () => {
+  return await prisma.product.findMany({
+    where: {
+      status: "published",
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 12,
+  });
+};
+
 export const getProductById = async (id: string) => {
+
     return await prisma.product.findUnique({
         where: { id, },
     })
