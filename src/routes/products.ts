@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createProduct, deleteProduct, getProductById, getProducts, updateProduct } from "../services/products";
+import { createProduct, deleteProduct, getNewArrivals, getProductById, getProducts, updateProduct } from "../services/products";
 import { searchProducts } from "../services/search";
 const router = Router();
 
@@ -23,6 +23,27 @@ router.get("/search", async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to search products",
+    });
+  }
+});
+
+
+// GET /api/v1/products/new-arrivals
+router.get("/new-arrivals", async (req, res) => {
+  try {
+    const products = await getNewArrivals();
+
+    return res.status(200).json({
+      success: true,
+      message: "New arrivals fetched successfully",
+      data: products,
+    });
+  } catch (error) {
+    console.error("GET NEW ARRIVALS ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch new arrivals",
     });
   }
 });
@@ -142,5 +163,7 @@ router.delete("/:id" , async(req, res) =>{
         })
     }
 })
+
+
 
 export default router;
