@@ -44,3 +44,28 @@ export const deleteCategories = async (id:string) => {
         where: {id},
     })
 }
+
+
+export const getCategoryById = async (id: string) => {
+  const category = await prisma.categories.findUnique({
+    where: { id },
+    include: {
+      products: {
+        orderBy: { createdAt: "desc" },
+      },
+    },
+  });
+
+  if (!category) return null;
+
+  return {
+    id: category.id,
+    name: category.name,
+    description: category.description,
+    image: category.image,
+    status: category.status,
+    createdAt: category.createdAt,
+    productCount: category.products.length,
+    products: category.products,
+  };
+};
