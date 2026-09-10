@@ -2,66 +2,66 @@ import { prisma } from "../lib/prisma";
 
 export const createProduct = async (data: any) => {
     // console.log(data)
-  return await prisma.product.create({
-    data: {
-      name: data.name,
-      sku: data.sku,
-      category: data.category,
-      brand: data.brand,
-      shortDescription: data.shortDescription,
+    return await prisma.product.create({
+        data: {
+            name: data.name,
+            sku: data.sku,
+            category: data.category,
+            brand: data.brand,
+            shortDescription: data.shortDescription,
 
-      regularPrice: Number(data.regularPrice),
-      salePrice: Number(data.salePrice),
+            regularPrice: Number(data.regularPrice),
+            salePrice: Number(data.salePrice),
 
-      stockQuantity: Number(data.stockQuantity),
-      lowStockAlert: Number(data.lowStockAlert),
+            stockQuantity: Number(data.stockQuantity),
+            lowStockAlert: Number(data.lowStockAlert),
 
-      stockStatus: data.stockStatus,
-      description: data.description,
-      status: data.productStatus,
+            stockStatus: data.stockStatus,
+            description: data.description,
+            status: data.productStatus,
 
-      images: data.images,
-      Brands: data.brandId
-  ? { connect: { id: data.brandId } }
-  : undefined,
+            images: data.images,
+            Brands: data.brandId
+                ? { connect: { id: data.brandId } }
+                : undefined,
 
-Categories: data.categoryId
-  ? { connect: { id: data.categoryId } }
-  : undefined,
-      seller:{
-        connect: {
-            id: data.sellerId
-        }
-      }
-    },
-  });
+            Categories: data.categoryId
+                ? { connect: { id: data.categoryId } }
+                : undefined,
+            seller: {
+                connect: {
+                    id: data.sellerId
+                }
+            }
+        },
+    });
 };
 
 
-export const getProducts = async () =>{
+export const getProducts = async () => {
     return await prisma.product.findMany({
-        orderBy:{
+        orderBy: {
             createdAt: "desc"
         }
     })
 }
 
-export const getProductById = async(id:string)=>{
+export const getProductById = async (id: string) => {
     return await prisma.product.findUnique({
-        where:{id, },
+        where: { id, },
     })
 }
 
-export const updateProduct = async(id:string, data:any) => {
+export const updateProduct = async (id: string, data: any) => {
     return await prisma.product.update({
-        where: {id, }, data,
+        where: { id, }, data,
     })
 }
 
 
-export const deleteProduct = async (id:string) =>{
+export const deleteProduct = async (id: string) => {
     return await prisma.product.delete({
-        where:{
+        where: {
             id,
         },
     });
