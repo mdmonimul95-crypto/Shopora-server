@@ -53,7 +53,7 @@ router.post("/chat", async (req, res) => {
       });
     }
 
-    console.log("AI CHAT MESSAGE:", message);
+    // console.log("AI CHAT MESSAGE:", message);
 
     /* =====================================================
        STEP 1
@@ -90,10 +90,10 @@ Rules:
       message
     );
 
-    console.log(
-      "AI QUERY RESPONSE:",
-      queryResponse
-    );
+    // console.log(
+    //   "AI QUERY RESPONSE:",
+    //   queryResponse
+    // );
 
     /* =====================================================
        PARSE SEARCH QUERY
@@ -140,10 +140,10 @@ Rules:
 };
 }
 
-    console.log(
-      "AI SEARCH INFO:",
-      searchInfo
-    );
+    // console.log(
+    //   "AI SEARCH INFO:",
+    //   searchInfo
+    // );
 
     /* =====================================================
        NORMAL CHAT
@@ -177,19 +177,16 @@ Do not invent Shopora product information.
     const searchQuery =
       searchInfo.searchQuery.trim();
 
-    console.log(
-      "SHOPORA PRODUCT SEARCH QUERY:",
-      searchQuery
-    );
+    // console.log( "SHOPORA PRODUCT SEARCH QUERY:", searchQuery );
 
     const products = await searchProducts(
       searchQuery
     );
 
-    console.log(
-      "PRODUCTS FOUND:",
-      products.length
-    );
+    // console.log(
+    //   "PRODUCTS FOUND:",
+    //   products.length
+    // );
 
     /* =====================================================
        NO PRODUCT FOUND
@@ -240,10 +237,10 @@ Description: ${
         "\n-----------------------------\n"
       );
 
-    console.log(
-      "PRODUCT CONTEXT:",
-      productContext
-    );
+    // console.log(
+    //   "PRODUCT CONTEXT:",
+    //   productContext
+    // );
 
     /* =====================================================
        AI FINAL RESPONSE
