@@ -2,6 +2,9 @@ import { prisma } from "../lib/prisma";
 
 export const getCategories = async () => {
     return await prisma.categories.findMany({
+        where: {
+            status: "Active",
+        },
        include:{
         _count: {
             select:{

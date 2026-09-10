@@ -25,16 +25,16 @@ export const createProduct = async (data: any) => {
                 ? { connect: { id: data.brandId } }
                 : undefined,
 
-            Categories: data.categoryId
-                ? { connect: { id: data.categoryId } }
-                : undefined,
-            seller: {
-                connect: {
-                    id: data.sellerId
-                }
-            }
-        },
-    });
+Categories: data.categoryId
+  ? { connect: { id: data.categoryId } }
+  : undefined,
+      seller:{
+        connect: {
+            id: data.sellerId
+        }
+      }
+    },
+  });
 };
 
 
