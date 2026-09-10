@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { getSellerDashboardStats } from "../services/sellerDashboard";
 
-
 const router = Router();
 
 // GET /api/v1/seller/dashboard/:sellerId
@@ -9,6 +8,15 @@ router.get("/:sellerId", async (req, res) => {
   try {
     const { sellerId } = req.params;
 
+    // Seller ID validation
+    if (!sellerId) {
+      return res.status(400).json({
+        success: false,
+        message: "Seller ID is required",
+      });
+    }
+
+    // Get dashboard stats + analytics
     const stats = await getSellerDashboardStats(sellerId);
 
     return res.status(200).json({
